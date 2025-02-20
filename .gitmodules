@@ -1,1 +1,4 @@
 
+[submodule "network-slicing-for-iiot/themes/book"]
+	path = network-slicing-for-iiot/themes/book
+	url = https://github.com/alex-shpak/hugo-book

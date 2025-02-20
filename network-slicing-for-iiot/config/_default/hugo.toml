@@ -1,7 +1,11 @@
 baseURL = "https://raidantimosquitos.github.io/network-slicing-iot"
 languageCode = "en-us"
 title = "Network Slicing for IIoT"
-theme = ""
+theme = "book"
+
+# Book configuration
+disablePathToLower = true
+enableGitInfo = true
 
 [params]
     BookTitle = "Network Slicing for IIoT"
@@ -10,7 +14,6 @@ theme = ""
     BookToC = true             # Enable table of contents
     BookDateFormat = "Jan 2, 2006"
     BookRepo = "https://github.com/raidantimosquitos/network-slicing-iot"  # Your repository link (optional)
-    BookCollapseSection = true  # Enables collapsible sections
 
 [markup]
     [markup.tableOfContents]
@@ -28,55 +31,10 @@ theme = ""
         name = "Home"
         url = "/"
         weight = 1
-    [[menu.before]]
-        name = "IIoT services"
-        weight = 2
-        identifier = "iiot-services"
-        url = "/docs/iiot-services/"
-    [[menu.before]]
-        name = "Smart transportation"
-        weight = 3
-        parent = "iiot-services"
-        url = "/docs/iiot-services/smart-transportation"
-    [[menu.before]]
-        name = "Smart energy grid"
-        weight = 4
-        parent = "iiot-services"
-        url = "/docs/iiot-services/smart-energy-grid"
-    [[menu.before]]
-        name = "Smart industry/manufacturing"
-        weight = 5
-        parent = "iiot-services"
-        url = "/docs/iiot-services/smart-industry"
-    [[menu.before]]
-        name = "Enabling technologies"
-        weight = 6
-        identifier = "enabling-technologies"
-        url = "/docs/enabling-technologies/"
-    [[menu.before]]
-        name = "Network Function Virtualization (NFV)"
-        weight = 7
-        parent = "enabling-technologies"
-        url = "/docs/enabling-technologies/nfv"
-    [[menu.before]]
-        name = "Software-defined Networking (SDN)"
-        weight = 8
-        parent = "enabling-technologies"
-        url = "/docs/enabling-technologies/sdn"
-    [[menu.before]]
-        name = "Virtualization and containerization"
-        weight = 9
-        parent = "enabling-technologies"
-        url = "/docs/enabling-technologies/virtualization-and-containerization"
-    [[menu.before]]
-        name = "Cloud and Edge computing"
-        weight = 10
-        parent = "enabling-technologies"
-        url = "/docs/enabling-technologies/cloud-and-edge"
     [[menu.after]]
         name = "GitHub"
         url = "https://github.com/raidantimosquitos/network-slicing-iot"
-        weight = 11
+        weight = 30
 
 [outputs]
     home = ["HTML"]
