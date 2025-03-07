@@ -2,6 +2,7 @@
 title: Introduction
 type: docs
 author: Lucas Herranz Gancedo
+weight: 1
 ---
 
 # Research Project Proposal - Network slicing for Smart Manufacturing Industrial Internet of Things (IIoT) networks.
