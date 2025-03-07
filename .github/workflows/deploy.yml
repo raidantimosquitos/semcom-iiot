@@ -31,6 +31,11 @@ jobs:
         with:
           ref: gh-deployment-workflow
 
+      - name: Clear site files and re-create directory
+        run: |
+          git rm -rf "$DEPLOY_DIR"
+          mkdir -p "$DEPLOY_DIR"
+
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
