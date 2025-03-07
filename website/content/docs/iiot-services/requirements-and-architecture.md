@@ -10,7 +10,6 @@ math: true
 - Smart factories are a key component of Industry 4.0, leveraging machine and sensor data to optimize manufacturing through real-time feedback.
 - Network slicing enhances smart factory networks by creating virtual, isolated networks that support diverse industrial use cases with different QoS needs.
 - However, there is a lack of research on designing and managing network slices specifically for smart factories, which must account for unique network architectures, resource types, and strict business demands.
-- Research efforts from groups like 5G-ACIA[^1] and 3GPP have defined smart factory use cases for 5G network slicing, including manufacturing control, production monitoring, automation, and maintenance, each with varying data, reliability, and latency requirements.
 
 ## Smart factory service requirements
 
@@ -106,4 +105,4 @@ _Density Level from lowest_ (⭐) _to highest_ (⭐⭐⭐⭐⭐).
 
 ## References
 
-[^1] 5G ACIA, 5G Alliance for Connected Industries and Automation, [Link](https://5g-acia.org/)
+[^1]: 5G ACIA, 5G Alliance for Connected Industries and Automation, [Link](https://5g-acia.org/)
