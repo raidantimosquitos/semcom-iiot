@@ -1,49 +1,54 @@
-name: Deploy to GitHub Pages from gh-deployment-workflow branch
+name: Deploy Hugo Site to GitHub Pages
 
 on:
   push:
     branches:
-      - main
+      - main # Trigger deployment when changes are pushed to main
 
 env:
-  DEPLOY_DIR: webiste
+  DEPLOY_BRANCH: gh-deployment-workflow
+  HUGO_VERSION: 0.123.4 # Update this to the latest Hugo version
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout main branch
-        uses: actions/checkout@v4
-
-      - name: Setup Git config
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.DEPLOY_DIR }}
-          path: ${{ github.workspace }}/${{ env.DEPLOY_DIR }}/
-
-      - name: Checkout gh-deployment-workflow branch
+      - name: Checkout the main branch
         uses: actions/checkout@v4
         with:
-          ref: gh-deployment-workflow
+          submodules: recursive # Ensure Hugo themes (if any) are fetched
+          fetch-depth: 0 # Full history required for deployment
 
-      - name: Clear site files and re-create directory
+      - name: Install Hugo
         run: |
-          git rm -rf "$DEPLOY_DIR"
-          mkdir -p "$DEPLOY_DIR"
+          sudo apt-get update
+          sudo apt-get install -y hugo
 
-      - name: Download artifact
-        uses: actions/download-artifact@v4
+      - name: Build the Hugo site
+        run: |
+          cd website
+          hugo --minify -d public  # Build the site with output in 'website/public'
+
+      - name: Checkout the deployment branch
+        uses: actions/checkout@v4
         with:
-          name: ${{ env.DEPLOY_DIR }}
-          path: ${{ env.DEPLOY_DIR }}/
+          ref: ${{ env.DEPLOY_BRANCH }}
+          clean: true # Ensure a clean checkout
+
+      - name: Remove old site content
+        run: |
+          rm -rf ./*
+          mkdir -p website
+
+      - name: Copy new build to deployment branch
+        run: |
+          cp -r ../website/public/* ./website/
 
       - name: Commit and push changes
         run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "Deploy to GitHub Pages" || echo "No changes to commit"
-          git push origin gh-deployment-workflow
+          git commit -m "Deploy Hugo site to GitHub Pages" || echo "No changes to commit"
+          git push origin ${{ env.DEPLOY_BRANCH }}
