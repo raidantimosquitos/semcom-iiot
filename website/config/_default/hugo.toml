@@ -1,4 +1,4 @@
-baseURL = "https://raidantimosquitos.github.io/network-slicing-iot"
+baseURL = "https://raidantimosquitos.github.io/network-slicing-iot/"
 languageCode = "en-us"
 title = "Network Slicing for IIoT"
 theme = "book"
@@ -13,7 +13,7 @@ enableGitInfo = true
     BookSearch = true          # Enable search
     BookToC = true             # Enable table of contents
     BookDateFormat = "Jan 2, 2006"
-    BookRepo = "https://github.com/raidantimosquitos/network-slicing-iot"  # Your repository link (optional)
+    BookRepo = "https://github.com/raidantimosquitos/network-slicing-iot/"  # Your repository link (optional)
     math = true
 
 [markup]
