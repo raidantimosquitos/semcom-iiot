@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  DEPLOY_DIR: network-slicing-for-iiot
+  DEPLOY_DIR: webiste
 
 jobs:
   deploy:
@@ -24,7 +24,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.DEPLOY_DIR }}
-          path: ${{ github.workspace }}/${{ env.DEPLOY_DIR }}
+          path: ${{ github.workspace }}/${{ env.DEPLOY_DIR }}/
 
       - name: Checkout gh-deployment-workflow branch
         uses: actions/checkout@v4
@@ -40,7 +40,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ env.DEPLOY_DIR }}
-          path: ${{ env.DEPLOY_DIR }}
+          path: ${{ env.DEPLOY_DIR }}/
 
       - name: Commit and push changes
         run: |
