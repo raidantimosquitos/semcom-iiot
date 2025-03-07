@@ -2,6 +2,7 @@
 title: Requirements and architecture
 type: docs
 weight: 1
+math: true
 ---
 
 # Network slicing requirements and architecture for smart manufacturing scenarios.
