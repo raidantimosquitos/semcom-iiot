@@ -7,6 +7,8 @@ weight: 1
 
 <img src="/images/ntust-logo.png" alt="National Taiwan University of Science and Technology">
 
+![NTUST](/images/ntust-logo.png)
+
 # Research Project Proposal - Network slicing for Smart Manufacturing Industrial Internet of Things (IIoT) networks.
 
 ## Research summary
