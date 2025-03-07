@@ -1,30 +1,44 @@
-name: Deploy Hugo site to GitHub Pages
+name: Deploy to GitHub Pages from gh-deployment-workflow branch
 
 on:
   push:
     branches:
-      - main # Change this if your default branch is different
+      - main
+
+env:
+  DEPLOY_DIR: network-slicing-for-iiot
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout main branch
         uses: actions/checkout@v4
 
-      - name: Install Hugo
-        uses: peaceiris/actions-hugo@v2
+      - name: Setup Git config
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
-          hugo-version: "latest"
+          name: ${{ env.DEPLOY_DIR }}
+          path: ${{ github.workspace }}/${{ env.DEPLOY_DIR }}
 
-      - name: Build site
-        run: hugo --minify
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Checkout gh-deployment-workflow branch
+        uses: actions/checkout@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./network-slicing-for-iiot/content/
-          publish_branch: gh-pages # This will push to the `gh-pages` branch
+          ref: gh-deployment-workflow
 
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.DEPLOY_DIR }}
+          path: ${{ env.DEPLOY_DIR }}
+
+      - name: Commit and push changes
+        run: |
+          git add .
+          git commit -m "Deploy to GitHub Pages" || echo "No changes to commit"
+          git push origin gh-deployment-workflow
