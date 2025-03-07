@@ -5,7 +5,7 @@ author: Lucas Herranz Gancedo
 weight: 1
 ---
 
-<img src="../assets/img/ntust-logo.png" alt="National Taiwan University of Science and Technology">
+<img src="../static/images/ntust-logo.png" alt="National Taiwan University of Science and Technology">
 
 # Research Project Proposal - Network slicing for Smart Manufacturing Industrial Internet of Things (IIoT) networks.
 
