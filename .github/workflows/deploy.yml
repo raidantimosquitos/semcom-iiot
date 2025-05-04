@@ -1,63 +1,39 @@
-name: Deploy Hugo Site to GitHub Pages
+name: Deploy Hugo site to GitHub Pages
 
 on:
   push:
     branches:
-      - main # Trigger deployment when changes are pushed to main
-
-env:
-  DEPLOY_BRANCH: gh-deployment-workflow
-  HUGO_VERSION: 0.123.4 # Update this to the latest Hugo version
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the main branch
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: recursive # Ensure Hugo themes (if any) are fetched
-          fetch-depth: 0 # Full history required for deployment
+          submodules: true # Ensure themes are included
+          fetch-depth: 0 # Full history for commits
 
-      - name: Install Hugo (Latest)
-        run: |
-          HUGO_VERSION=$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | jq -r '.tag_name' | sed 's/v//')
-          wget https://github.com/gohugoio/hugo/releases/download/v$HUGO_VERSION/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
-          sudo dpkg -i hugo_extended_${HUGO_VERSION}_linux-amd64.deb
-          rm hugo_extended_${HUGO_VERSION}_linux-amd64.deb
-
-      - name: Initialize Hugo Modules
-        run: |
-          cd website
-          hugo mod tidy
-
-      - name: Build the Hugo site
-        run: |
-          cd website
-          hugo --minify -d ../public  # Build the site with output in 'website/public'
-          ls -lah ../public # Debug to confirm public/ directory exists
-
-      - name: Temporarily Store Built Site
-        run: |
-          mv public /tmp/public-site
-
-      - name: Checkout the deployment branch
-        uses: actions/checkout@v4
+      - name: Install Hugo
+        uses: peaceiris/actions-hugo@v3
         with:
-          ref: ${{ env.DEPLOY_BRANCH }}
-          clean: true # Ensure a clean checkout
+          hugo-version: "latest"
+          extended: true
 
-      - name: Remove old site content
+      - name: Build the website
         run: |
-          rm -rf ./*
-          mv /tmp/public-site/* . # Move built site into deployment branch
-          ls -lah # Debug (check files in correct location)
+          cd website
+          hugo --minify --config hugo.production.yaml --environment production --destination ../public
 
-      - name: Commit and push changes
+      - name: Deploy to gh-pages-deployment branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages-deployment
+
+      - name: Confirm Deployment URL
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "Deploy Hugo site to GitHub Pages" || echo "No changes to commit"
-          git push origin ${{ env.DEPLOY_BRANCH }} --force
+          echo "Website deployed to: https://raidantimosquitos.github.io/semcom-iiot"
