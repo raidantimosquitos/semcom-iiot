@@ -1,6 +1,6 @@
 # Base URL used when generating links to your pages
 # Set to the URL for your site
-baseURL = "https://raidantimosquitos.github,io/semcom-iiot"
+baseURL = "https://raidantimosquitos.github.io/semcom-iiot"
 
 # The name of this wonderful theme ;-).
 theme = 'hugo-bearblog'
@@ -30,7 +30,7 @@ ignoreErrors = ["error-disable-taxonomy"]
   # services like Twitter or Slack want to generate a preview of a link to your site.
   # See https://gohugo.io/templates/internal#twitter-cards and
   # https://gohugo.io/templates/internal#open-graph.
-  images = ["images/share.png"]
+  images = ["share.png"]
 
   # Another "title" :-). This one is used as the site_name on the Hugo's internal
   # opengraph structured data template.
